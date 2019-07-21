@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>CEPTALK</title>
+  <meta charset="UTF-8" />
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"></link>
+  <!-- Include the jQuery library -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+   button{ 
+   background: linear-gradient(rgba(234,234,234,0.9), rgba(234,234,234,0.9));    
+  } 
+ 
+  .ui-page {
+    background: transparent url(JJang9.jpg);
+    background-size:100% 100%;
+  }
+  </style>
+</head> 
+<body>
+  <div data-role="page">
+ 
+ <div data-role="header" data-theme="b">
+ <h1>CEP TALK</h1>
+ </div>
+ 
+    <div data-role="content" class="ui-content" >
+  
+    <form action="/index.html" method="post" data-ajax="false">
+ 
+ <div data-role="fieldcontain">
+  <input type="text" id="id" name="id" placeholder="아이디"/>
+ </div>    
+ <div data-role="fieldcontain">
+     <input type="password" id="password" name="password" placeholder="비밀번호"/>
+ </div>    
+    
+    <button type="submit">로그인</button> 
+ </form> 
+ 
+ <a href="#myPopup" data-rel="popup" class="ui-btn ui-corner-all">
+ 회원가입</a>
+ <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+ <form action="/SignUp" method="POST" data-ajax="false" enctype="multipart/form-data"> 
+    <input type="text" name="email" placeholder="아이디"/><br/> 
+    <input type="text" name="nickname" placeholder="닉네임"/><br/> 
+    <input type="password" name="password" placeholder="비밀번호"/><br/> 
+    <input type="file" name="image"/><br/><br/>
+ <input type="submit" data-inline="true" value="등록">
+ </form> 
+ 
+    <script> 
+    var socket=io(); 
+    socket.emit('login','login'); 
+    </script> 
+ </div>
+ </div>
+ 
+ <div data-role="footer" data-position="fixed" data-theme="b">
+ <h1>CEP TALK</h1>
+ </div>
+ 
+  </div>
+</body> 
+</html>  

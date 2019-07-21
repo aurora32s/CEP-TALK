@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Socket.IO</title> 
+    <meta charset="UTF-8" />
+ <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"></link>
+    <!-- Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Include the jQuery Mobile library -->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<style>
+		.ui-grid-a { width: 100%; 
+        		position: fixed;   
+        		bottom: 0;
+    		}
+		#three{width:40px; float:right;}
+		.ui-ul{text-decoration:none;}
+		#profile { margin-top: 30%; margin-left:20%; border-radius:50%; border:1px solid;}
+		/*User's Profile image on Chatting Window*/
+   		#image{ width:35px; height: 35px ;  
+        		margin-left:1%; margin-right:1%; 
+        		border-radius:50%;
+		}
+	/*대화내용출력*/
+		.ui-li { 
+			width:100%
+			list-style-type: none; 
+			font-size:11pt; 
+			position:relative; 
+			border:3px solid #704536;
+		}
+		.ui-li li:nth-child(odd) { background: #eee; } 
+		.panel-head{height:30%;}
+		#panel_bottom,#panel_bottom2{ height:0%;background-color:lightgray;}
+		#client{margin-top:5%;}
+		#panel_bottom2 img{width:20%;height:20%;float:center;margin-left:5%;margin-top:2%;}
+	</style>
+</head>
+<body id="BODY"> 
+    <div data-role="page" id="pageone">
+
+ <div data-role="header" data-theme="b" data-position="fixed">
+ 	<h1>CEP TALK</h1>
+ 
+ <div data-role="navbar" style=background-color:gray >
+			<ul class="ui-ul">
+				<li><img src="three.png" id="three"></li>		
+			</ul>
+ </div>
+
+ </div>
+
+<div data-role="panel" id="myPanel" data-position="right" data-display="overlay">
+	<div data-role="header" data-theme="a" data-position="fixed">
+	 	<h1>CEP TALK</h1> 
+	<div data-role="navbar" style=background-color:gray >
+			<ul>
+				<li><button id="pink" class="color" style=background-color:#F361A6></button></li>
+    				<li><button id="yellow" class="color" style=background-color:yellow></button></li>
+    				<li><button id="black" class="color" style=background-color:gray></button></li>
+    				<li><button id="purple" class="color" style=background-color:#CF90FF></button></li>
+			</ul>
+ 	</div>
+	</div>
+	<img id="profile" src="na.png" width="60%" height="60%"  alt=""/>
+	<ol data-role="listview" class="ui-li" id="client" style="overflow-y:scroll;">
+	</ol>
+</div>
+
+ <div data-role="main" class="ui-content">
+	<ol data-role="listview" class="ui-li" id="messages" style="overflow-y:scroll;">
+	</ol>
+ </div>
+
+ <!--입력창 폼-->
+ <div data-role="footer" data-theme="b" class="ui-grid-a">
+  <div id="panel_bottom" style="overflow-y:scroll;text-align:center; ">
+  </div>
+  <div id="panel_bottom2">
+  </div>
+  <div class="ui-block-a" style="width:10%;">
+        <a href="#page1" id="file" data-role="button" data-icon="grid" 
+		data-iconpos="notext" style="background-color:gray;">파일버튼</a> 
+  </div>
+<form action="">
+  <div class="ui-block-b" style="width:60%;">
+        <input class="msg" autocomplete="off" style="background-color:white;color:black;"/>
+  </div>
+  <div class="ui-block-c">
+        <a href="#page1" id="icon" data-role="button" data-icon="star" 
+		data-iconpos="notext" style="background-color:gray;">이모티콘</a>
+  </div>  
+  <div class="ui-block-d">
+        <input type="submit" value="전송" data-inline="true" style="background-color:gray;">
+  </div>
+</form>
+</div>
+<script>
+	var socket=io();
+	var click=0;
+	var click1=0;
+	var click2=0;
+	var number=15;
+	var nickname='Round';
+	var image="na.png";
+
+	var xmlHttp;
+	var st;
+	var today;
+
+	var day;
+	var hours;
+	var minutes;
+	var seconds;
+
+	$(document).on("pagecreate","#pageone",function(){
+
+	//During write
+      $('.msg').keydown(function(event){
+	socket.emit('write',nickname);
+      });
+
+      //Stop write
+      $('.msg').keyup(function(event){
+	number=number-1;
+	var keyid=event.keyCode;
+	if(number==0 || keyid==13){
+		socket.emit('finish',nickname);
+		number=15;
+	}
+      });
+
+      //During user writting
+      socket.on('write',function(nickname){
+	$('#'+nickname).remove();
+	$('#messages').append($('<li id='+nickname+'>').text('● ● ● '+nickname+' 입력중'));
+	//$('#Chatting').scrollLeft(300).scrollTop(1010);
+      });
+      
+      //user stop wrtting
+      socket.on('finish',function(nickname){
+	$('#'+nickname).remove();
+      });
+
+		$("#three").on("tap",function(){
+			$("#myPanel").panel("toggle");
+		});
+
+      		$('form').submit(function(){
+        		if($('.msg').val()!=''){
+	       			 socket.emit('chat message', {msg:$('.msg').val(),
+							nickname:nickname,image:image});
+	        		return false;
+			}
+			else{
+				return false;
+			}
+      		});
+	
+ 		$("#icon").on("tap",function(){
+    			if(click1==0){
+				if(click2==1){
+					$("#panel_bottom2").height(0);
+   					click2=0; 
+   					$("#panel_bottom2").empty();
+				}
+    				$("#panel_bottom").height(200);
+				socket.emit('emoticon');
+    				click1=1;
+   			} 
+   			else{ 
+   				$("#panel_bottom").height(0);
+   				click1=0; 
+   				$("#panel_bottom").empty();
+   			}  
+   		});
+   
+   		$("#file").on("tap",function(){
+   			if(click2==0){ 
+				if(click1==1){
+					$("#panel_bottom").height(0);
+   					click1=0; 
+   					$("#panel_bottom").empty();
+				}
+   	 			$("#panel_bottom2").height(200);				
+				$("#panel_bottom2").append('<li>'+
+							'<img id="folder" src="folder2.png">'+
+							'<img id="mic" src="mic.png">'+
+							'<img id="map" src="map.png">'+
+							   '</li>');
+				$("#panel_bottom2").append('<li>'+
+							'<img id="camera" src="camera1.png">'+
+							'<img id="video" src="video.png">'+
+							'<img id="address" src="address.png">'+
+							   '</li>');
+    				click2=1; 
+   			} 
+   			else{ 
+   				$("#panel_bottom2").height(0);
+   				click2=0; 
+   				$("#panel_bottom2").empty();
+   			}  
+   		});
+
+ 		//Get the time
+      		function srvTime(){
+			if(window.XMLHttpRequest){
+				xmlHttp=new XMLHttpRequest();
+			}
+			else if(window.ActiveXObject){
+				xmlHttp=new ActiveXObject('Msxml2.XMLHTTP');
+			}
+			xmlHttp.open('HEAD',window.location.href.toString(),false);
+			xmlHttp.setRequestHeader("Content-Type","text/html");
+			xmlHttp.send('');
+			st=xmlHttp.getResponseHeader("Date");
+        		today=new Date(st);
+			return today;
+      		}
+
+		//Connect Server
+     		socket.emit('start',nickname);
+
+		function setClock(){
+			day=srvTime();
+			hours=day.getHours();
+			minutes=day.getMinutes();
+			seconds=day.getSeconds();		
+		}
+		socket.on('chat message', function(msg){
+			setClock();
+       	 		$('#'+msg.client).remove();
+      			$('#messages').append('<li id='+msg.count+'><img id=image src='+msg.image+'>'+msg.client+"\t:"+msg.msg+' '+hours+':'+minutes+':'+seconds+'</li>');
+			$('#messages').scrollLeft(300).scrollTop(1010);
+      		});
+
+		//Append the Message that is written by Self
+	      socket.on('Self',function(count){
+		setClock();
+       	 	$('#'+nickname).remove();
+		$('#messages').append('<li id='+count+'><img id=image src='+image+'>'+nickname+" :"+$('.msg').val()+' '+hours+':'+minutes+':'+seconds+'</li>');
+		$('#messages').scrollLeft(300).scrollTop(1010);
+		$('.msg').val('');
+	      });
+
+		//Print UserList
+		socket.on('user list',function(client){
+      			$('#client').empty();
+			for(var i=0;i<client.length;i++){
+				$('#client').append($('<li>').text(client[i]+'\n'));
+			}
+      		});
+
+		socket.on('emoticon',function(data){
+			for(var i=0; i<data.length;i++){
+				$('#panel_bottom').append('<img id='+data[i].id+' src='+data[i].image+'>');
+			}
+		});
+		$('#panel_bottom').on('click','img',function(e){
+			socket.emit('imoticon',{id:this.id,nickname:nickname,image:image});
+      		});
+
+		socket.on('icon',function(data){
+			setClock();
+			$('#'+nickname).remove();
+				$('#messages').append('<li id='+data.count+
+						'><img id=image src='+data.image+'>'+
+						data.nickname+' : <img id="image" src='+data.icon+'> '+
+					hours+':'+minutes+':'+seconds+'</li>');
+			$('#messages').scrollLeft(300).scrollTop(1010);
+      });
+
+		//Show the Connected User on Chatting Window
+		socket.on('adduser',function(nickname){
+			$('#messages').append($('<li id="undefined">').text(nickname+'님이 입장하였습니다.'));
+      		});
+		//Show disconnect user
+		socket.on('subuser',function(nickname){
+			$('#messages').append($('<li id="undefined">').text(nickname+'님이 퇴장하였습니다.'));
+      		});
+			 
+      		//remove message
+      		$('#messages').on('tap','li',function(e){
+			if(this.id != "undefined"){
+				this.remove();
+				socket.emit('remove',this.id);
+			}
+		});
+
+       		socket.on('remove',function(id){
+			$('#'+id).remove();
+		});
+		
+		$('#folder').on('tap',function(){
+			if(click==0){
+			$('#messages').append($('<li id="undefined">').text(nickname+'님이 퇴장하였습니다.'));
+			click=1;
+			}
+			else{
+				click=0;
+			}
+		});
+      	});
+
+</script>
+</body> 
+</html>
+			
+	

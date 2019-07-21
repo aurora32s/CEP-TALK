@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <title> Android Chatting</title>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+    <script type="text/javascript">
+        var socket = io("192.168.50.204:3000");
+    </script>
+</head>
+<body>
+    <div class = "chatContainer">
+        <div class = " chatHeader">
+            <h3>Wecome Hello World!!!</h3>
+        </div>
+        <div class="chatMessage"></div>
+    </div>
+</body>
+</html>
