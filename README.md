@@ -58,5 +58,64 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 ### DataBase : MySql
 
+1. 어플리케이션 기본 화면
+
+![2_1](https://user-images.githubusercontent.com/22411296/61611840-dda30b80-ac97-11e9-8244-5976536bbaba.PNG)
+
+(1) Splash 화면 : 어플리케이션 실행 시 로딩화면을 띄어줌.
+
+	- plugin 추가 : cordova plugin add cordova-plugin-splashscreen
+
+	- config.xml
+		<preference name="SplashScreen" value="splash" /> 
+		<preference name="SplashMaintainAspectRatio" value="true" /> 
+		<preference name="SplashScreenDelay" value="3500" /> 
+		
+		* splash screen 유지 시간: 3500초
+		* 너무 작게 설정하면 Splash Screen과 채팅 화면 간에 빈 화면이 나오는 term이 생김.
+		
+	- index.html<javascript> : navigator.splashscreen.hide( );
+
+2. 기본 기능
+
+(1) 사진 촬영하기 : 사용자가 사진을 촬영하여 그 결과를 채팅창에 업로드 해주는 기능
+
+	- plugin :  cordova-plugin-camera
+
+	- index.js
+		function onDeviceReady() {     
+			document.getElementById("camera").addEventListener("click",cameraTakePicture); 
+		}
+		
+	- index.js
+		function cameraTakePicture(){ 
+			//alert("hello"); 
+			navigator.camera.getPicture(onSuccess, onFail, { 
+				quality: 100, 
+				destinationType: Camera.DestinationType.DATA_URI,
+				targetWidth:200, 
+				targetHeight:200 
+			}); 
+			function onSuccess(imageURL) { 
+				uploadImage(imageURL); 
+			} 
+			function onFail(message) { 
+				//alert('Failed because: ' + message); } 
+			}
+			
+			//결과 이미지의 URL을 이미지를 서버로 업로드 해주는 uploadImage( )함수로 전달
+	
+	- index.html : 이미지를 받아오는 함수
+		var profileURL="http://202.31.200.143/"+data.image; 
+		fileURL="http://202.31.200.143/"+data.file; 
+		$('#messages').append('<li><img id=image src='+profileURL+'> '+data.nickname+ ':'+'<img onClick="downloadFile" 				src='+fileURL+'></li>');
+
+(2) 사진 앨범에서 가져오기
+
+(3) 동영상 촬영하기
+
+(4) 동영상 앨범에서 가져오기
+
+
 
 
