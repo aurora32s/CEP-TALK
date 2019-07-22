@@ -77,12 +77,14 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 (2) 사진 앨범에서 가져오기 : 사진 앨범에서 채팅창에 전송하고 싶은 사진을 선택하여 다른 사용자들에게 전송하는 기능
 
 (3) 동영상 촬영하기
+	
 	- 카메라 플러그인에는 사진촬영만 되기 때문에 미디어 capture 플러그인을 사용함. 
 	- 기능 창에서 비디오모양 버튼을 누르면 동영상 촬영이 바로 가능함. 촬영이 끝나고 저장을 누르면 서버로 전송. 
 	- 서버로부터 전송된 비디오를 채팅창에 띄워줌. 
 	- 옵셥을 통해 동영상 최대 촬영 시간을 정할 수 있음.
 	
 (4) 동영상 앨범에서 가져오기
+	
 	- mediaType Name을 VIDEO로 설정하여 앨범을 불러올 때 동영상 파일만 불러옴. sourceType Name을 SAVEDPHOTOALBUM로 설정하여 디바이스의 앨범에서 가져오 도록 함.
 	- 선택된 비디오를 서버로 전송 
 	- 서버로부터 전송된 비디오를 채팅창에 띄어줌.
@@ -91,10 +93,12 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 ![2_3](https://user-images.githubusercontent.com/22411296/61613072-4770e480-ac9b-11e9-9bff-7bd61c65b0e5.PNG)
 
 (5) 녹음
+	
 	-plugin meda capture을 사용하여 10초미만의 1개의 파일만을 선택하거나 녹음할 수 있게 옵션을 지정
 	-녹음이 끝난 후 파일을 서버로 upload -서버로부터 전송된 녹음 파일을 append를 사용하여 채팅창에 띄워줌
 
 (6) 프로필 사진 변경 : 
+	
 	- 로그인을 할 때 자신의 프로필 사진을 지정하거나 채팅 도중 자신의 프로필 사진을 변경하고 싶을 경우 
 	자신의 프로필 사진을 클릭하면 앨범에서 사진을 선택하는 창이 뜬다. 
 	- 원하는 사진을 클릭한 후 확인 버튼을 누르면 자신의 프로필 사진이 변경 되는 기능
@@ -142,6 +146,7 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		);
 		
 (8) Geolocation & Google map
+	
 	-Geolocation으로 현재 자신의 위치를 위도와 경도로 받아와서 구글 맵 상에서 확인 하고 확인한 자신의 위치를 채팅방에 이미지 형식으로 업로드 하여 다른 사용자에게 자신의 위치를 알려주는 기능
 	- 구글맵 이미지를 screen shot해서 채팅창에 업로드하기 위해 screenshot 플러그 인을 사용하려 하였으나 구글 맵의 transparent 성질 때문에 구글 맵을 제외한 부분 만이 캡쳐 되는 등 난항을 겪었습니다. 
 	- map option에서 back-ground에 색을 지정 해보기도 하고 교수님께서 조언해주셨던 z-index로 위치를 조절하는 등 많은 방법을 시도하였으나 생각대로 되지 않았습니다. 며칠 동안 검색을 이용해 방법을 찾던 중 구글 맵 자체에서 toDataURL이라는 함수를 지원하는 것을 알게 되어 성공할 수 있었 습니다.
@@ -149,6 +154,13 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 ![2_4](https://user-images.githubusercontent.com/22411296/61614230-2a89e080-ac9e-11e9-81e4-a49523113a70.PNG)
 
 (9) weather information
+	
 	- 사용자의 위치를 plugin geolocation을 사용하여 위치정보를 확인 후 사용자가 위 치한 곳의 날씨의 정보를 json형식으로 불러옴. 
 	- openweathermap사이트의 URL에 lat와 lon에 위도와 경도정보를 입력하고 appid에 사이트에서 부여받은 API key값을 입력하면 사용자의 날씨 정보를 json형식으로 받 아옴. 
 	- ajax를 사용하여 json형식으로 파일 불러오기가 성공을 하면 날씨의 정보에 따라 미리 지정해 두었던 메시지(문구)를 출력시키고 나의 현재 위치의 날씨 이미지를 출력해 주는 기능
+	
+(10) 연락처 전송 기능
+
+	- 사용자의 디바이스에서 연락처 정보를 가져와 listview 형식으로 사용자에게 보여줌 
+	- 사용자는 원하는 연락처를 클릭하게 되면 연락처를 다른 사용자에게 전송할 것인 지 아니면 직접 전화를 할 것인지 선택하는 dialog창이 뜨게 된다.
+
