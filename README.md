@@ -22,7 +22,6 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 ![3](https://user-images.githubusercontent.com/22411296/61610329-ceba5a00-ac93-11e9-870a-deef2d146f5c.png)
 
 (4) Main
-
 ![5](https://user-images.githubusercontent.com/22411296/61610892-5ce31000-ac95-11e9-93ff-41206c055f51.png)
 
 - Nick name 설정
@@ -43,6 +42,13 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		                  socket.emit(‘imoticon’,{id:result[i].id,icon:result[i].image});
 	                  }
                   });
+		  
+ (5) Change Color
+ ![6](https://user-images.githubusercontent.com/22411296/61611067-cbc06900-ac95-11e9-8bb2-d64689f920a6.png)
+
+- Function to change Color
+![6 5](https://user-images.githubusercontent.com/22411296/61611152-06c29c80-ac96-11e9-992c-78aa6156f861.PNG)
+
 # 
 
 ## 2. Hybrid App - Chatting Program
