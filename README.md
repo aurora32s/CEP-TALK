@@ -145,8 +145,60 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		//사진 촬영과 같은 방식으로 채팅창에 띄어줌.
 
 (3) 동영상 촬영하기
+	- 카메라 플러그인에는 사진촬영만 되기 때문에 미디어 capture 플러그인을 사용함. 
+	- 기능 창에서 비디오모양 버튼을 누르면 동영상 촬영이 바로 가능함. 촬영이 끝나고 저장을 누르면 서버로 전송. 
+	- 서버로부터 전송된 비디오를 채팅창에 띄워줌. 
+	- 옵셥을 통해 동영상 최대 촬영 시간을 정할 수 있음.
+	
+	- plugin : cordova-plugin-media-capturefunction
+	
+	- index.js
+		onDeviceReady() {    
+			document.getElementById("video").addEventListener("click",videoCapture);  
+		}
+		
+	- index.js
+		function videoCapture(){    
+			var list = document.getElementById('messages');  
+			navigator.device.capture.captureVideo(
+				onSuccess, 
+				onError, 
+				{ limit: 1,  destinationType: Camera.DestinationType.FILE_URL,duration: 10}
+			);         
+			function onSuccess(mediaFiles) { uploadVideo(mediaFiles[0].fullPath); } 
+			function onError(error) {}   
+		}
+		** 비디오 파일의 URL을 비디오 파일을 서버로 업로드 하는 함수인 uploadVideo()로 전달
+	
+	- index.html : 서버로부터 전송된 비디오 업로드
+		// video태그를 사용하여 채팅창에 올리기. 재생 조절가능.  
+		var profileURL="http://202.31.200.143/"+data.image; 
+		fileURL="http://202.31.200.143/"+data.file; 
+		$('#messages').append(‘<li><video width="320" height="176" controls> <source src ="'+fileURL+'" type="video/mp4" > </video></li>)
 
 (4) 동영상 앨범에서 가져오기
+	- mediaType Name을 VIDEO로 설정하여 앨범을 불러올 때 동영상 파일만 불러옴. sourceType Name을 SAVEDPHOTOALBUM로 설정하여 디바이스의 앨범에서 가져오 도록 함.
+	- 선택된 비디오를 서버로 전송 
+	- 서버로부터 전송된 비디오를 채팅창에 띄어줌.
+
+	- plugin : cordova-plugin-camera
+	
+	- index.js
+		function onDeviceReady() {     
+			document.getElementById("GetVideo").addEventListener("click",cameraGetVideo);  
+		}
+		
+	- index.js
+		function cameraGetVideo(){ 
+			navigator.camera.getPicture(onSuccess,onFail, 
+				{   quality: 100,   destinationType: Camera.DestinationType.FILE_URL,  
+				sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,  
+				mediaType: Camera.MediaType.VIDEO //video만 }
+			); 
+			function onSuccess(imageData){   uploadVideo(imageData); }
+			function onFail(message){}
+		}
+		**동영상 촬영과 같은 방식으로 채팅창에 띄어줌.
 
 
 
