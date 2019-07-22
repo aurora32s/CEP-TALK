@@ -4,14 +4,6 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 ### 서버는 server code 참조
 ##
 
-## 1. WebPage - Chatting Program
-
-### Language : javascript - Http, Css
-
-### Server : Node.js[Linux]
-
-### DataBase : MySql
-
 (1) 기본 구조
 
 ![1](https://user-images.githubusercontent.com/22411296/61609729-02948000-ac92-11e9-871c-f79055e4c5b0.JPG)
@@ -20,36 +12,16 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 ![2](https://user-images.githubusercontent.com/22411296/61609752-150eb980-ac92-11e9-8ecd-52f456496d4b.JPG)
 
-(3) Login / Sign Up
+##
 
-![3](https://user-images.githubusercontent.com/22411296/61610329-ceba5a00-ac93-11e9-870a-deef2d146f5c.png)
+## 1. WebPage - Chatting Program
 
-(4) Main
+### Language : javascript - Http, Css
 
-- Nick name 설정
-    1. 채팅방 접속시
-        
-        - Client : Socket.emit(‘start’,nickname);
+### Server : Node.js[Linux]
 
-        - Server
-              Socket.on(‘start’,function(data){
-	                clientid[data]=socket.id;
-	                socketed[socket.id]=data;
-	                io.sockets.emit(‘user list’,Object.keys(clientid));
-	                io.sockets.emit(‘adduser’,data);
-                  
-                  //프로필 사진
-                  Connect.query(‘select * FROM IMOTICON’,function(error,result){
-	                  for(var i=0;i<result.length;i++){
-		                  socket.emit(‘imoticon’,{id:result[i].id,icon:result[i].image});
-	                  }
-                  });
-		  
- (5) Change Color
-
-- Function to change Color
-
-# 
+### DataBase : MySql
+##
 
 ## 2. Hybrid App - Chatting Program
 
@@ -171,4 +143,6 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 	- 사용자의 디바이스에서 연락처 정보를 가져와 listview 형식으로 사용자에게 보여줌 
 	- 사용자는 원하는 연락처를 클릭하게 되면 연락처를 다른 사용자에게 전송할 것인 지 아니면
 	직접 전화를 할 것인지 선택하는 dialog창이 뜨게 된다.
+
+
 
