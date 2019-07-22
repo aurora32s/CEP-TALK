@@ -1,10 +1,7 @@
 # CEP-TALK
 CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - javascript, html, css
 
-## 서버는 server code 참조
-// 웹 채팅은 하이브리드 앱이랑 비슷하니, 하이브리드 앱 정보만 
-
-##
+## 서버는 server code 참조 
 
 (1) 기본 구조
 
