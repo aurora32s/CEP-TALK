@@ -1,6 +1,9 @@
 # CEP-TALK
 CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - javascript, html, css
 
+### 서버는 server code 참조
+##
+
 ## 1. WebPage - Chatting Program
 
 ### Language : javascript - Http, Css
