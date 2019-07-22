@@ -17,15 +17,13 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 ![2](https://user-images.githubusercontent.com/22411296/61609752-150eb980-ac92-11e9-8ecd-52f456496d4b.JPG)
 
-(3) Login
+(3) Login / Sign Up
 
 ![3](https://user-images.githubusercontent.com/22411296/61609885-7171d900-ac92-11e9-92af-fe90c710b9b7.png)
 
+![4](https://user-images.githubusercontent.com/22411296/61610269-9ca8f800-ac93-11e9-8238-6c4431db97b1.png)
 
-	- Client
-	
-	- Server
-
+(4) 
 # 
 
 ## 2. Hybrid App - Chatting Program
