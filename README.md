@@ -23,11 +23,9 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 (4) Main
 
-![5](https://user-images.githubusercontent.com/22411296/61610488-48524800-ac94-11e9-845e-a3c175c3ca8e.png)
+![5](https://user-images.githubusercontent.com/22411296/61610892-5ce31000-ac95-11e9-93ff-41206c055f51.png)
 
 - Nick name 설정
-
-"javascript
     1. 채팅방 접속시
         
         - Client : Socket.emit(‘start’,nickname);
@@ -45,8 +43,6 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		                  socket.emit(‘imoticon’,{id:result[i].id,icon:result[i].image});
 	                  }
                   });
-""
-
 # 
 
 ## 2. Hybrid App - Chatting Program
