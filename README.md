@@ -19,9 +19,7 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 (3) Login / Sign Up
 
-![3](https://user-images.githubusercontent.com/22411296/61609885-7171d900-ac92-11e9-92af-fe90c710b9b7.png)
-
-![4](https://user-images.githubusercontent.com/22411296/61610269-9ca8f800-ac93-11e9-8238-6c4431db97b1.png)
+![3](https://user-images.githubusercontent.com/22411296/61610329-ceba5a00-ac93-11e9-870a-deef2d146f5c.png)
 
 (4) 
 # 
