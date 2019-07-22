@@ -9,6 +9,12 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 ### DataBase : MySql
 
+(1) 기본 구조
+![1](https://user-images.githubusercontent.com/22411296/61609729-02948000-ac92-11e9-871c-f79055e4c5b0.JPG)
+
+(2) 데이터베이스
+![2](https://user-images.githubusercontent.com/22411296/61609752-150eb980-ac92-11e9-8ecd-52f456496d4b.JPG)
+
 # 
 
 ## 2. Hybrid App - Chatting Program
