@@ -202,6 +202,70 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		}
 		**동영상 촬영과 같은 방식으로 채팅창에 띄어줌.
 
+![2_3](https://user-images.githubusercontent.com/22411296/61613072-4770e480-ac9b-11e9-9bff-7bd61c65b0e5.PNG)
 
+(5) 녹음
+	-plugin meda capture을 사용하여 10초미만의 1개의 파일만을 선택하거나 녹음할 수 있게 옵션을 지정
+	-녹음이 끝난 후 파일을 서버로 upload -서버로부터 전송된 녹음 파일을 append를 사용하여 채팅창에 띄워줌
 
+	- plugin : cordova-plugin-mediga-capture
+	
+	- index.html : 클릭 이벤트로 녹음 함수를 실행 
+		document.getElementById("mic").addEventListener("click",audioCapture);
+		
+	- index.js
+		function audioCapture() {      
+			var options = { limit: 1, duration: 10 };
+			navigator.device.capture.captureAudio(onSuccess, onError, options); 
+			function onSuccess(mediaFiles) {  
+				for (i = 0, len = mediaFiles.length; i < len; i += 1) {   
+					path = mediaFiles[i].fullPath;         
+				}         
+				uploadAudio(path);    
+			} 
+		}
+		//오디오 파일의 URL을 오디오 파일을 서버로 업로드 하는 함수인 uploadAudio()로 전달
 
+	- audio태그를 사용하여 채팅창에 파일 올리기.         
+		var profileURL="http://202.31.200.143/"+data.image; 
+		fileURL="http://202.31.200.143/"+data.file;
+		$('#messages').append('<li> <audio src="'+fileURL+'" preload="auto" controls></audio><li>');
+
+(6) 파일 전송 : 앞에서 보았던 여러 파일과 데이터들을 서버로 전송하는 기능
+	- 파일들에 대한 함수가 비슷하므로 한 번에 설명
+
+	- plugin : cordova-plugin-file-transfer
+	
+	- function uploadFile(imageURL){ 
+		var options=new FileUploadOptions(); 
+		options.fileKey="file";  // 서버에서 file의 변수명을 결정 -> 서버에서 req.files.file 로 사용
+		options.fileName=imageURL.substr(imageURL.lastIndexOf('/')+1);  // 다른 파일들과 구별할 파일의 이름 설정
+		
+		options.mimeType="video/mp4"; //파일의 mimeType을 설정 -> 오디오 : “audio/m4a” , 비디오 : “video/mp4” 
+						이미지 : “image/jpeg” , 카카*톡에서 직접 파일들을 전송하여 확장자 확인
+		options.params={'nickname':nickname}; //서버에 nickname도 함께 전달 ( 프로필 사진을 받아오기 위해서)
+									서버에서는 req.body.nickname으로 사용
+		
+		function success(message){}; function fail(error){};
+		
+		var ft=new FileTransfer();   
+		ft.upload(imageURL,encodeURI('http://202.31.200.143/uploadVideo'),success,fail,option s);  
+		//(데이터 URL, 서버 URI, 옵션)을 순서대로 넣어줌
+		
+	- 이미지, 동영상, 오디오 전송 시 서버 부분    
+		app.post(‘/URL’,function(req,res){      
+			var filename=path.basename(req.files.file.path);  //파일의 이름만 받아온다.
+			io.sockets.emit(...,{file:filename ,nickname: req.body.nickname, image: ...}; //다른 사용자들에게 파일 전송    			   res.status(204).end( );   
+		}
+		
+	- 파일을 서버에 업로드 하는 부분
+		app.use(express.static(__dirname+’/pulic’)); 
+		app.use(multipart({uploadDir:__dirname+’/public’})); 에 의해서 자동으로 pulic 폴더 안에 저장된다.
+		
+	- 프로필 사진 업로드
+		app.post(‘/uploadProfile’,function(req,res){   
+			var filename=path.basename(req.files.file.path);   
+			connect.query(‘UPDATE REGIST SET image=? WHERE nickname=?’,[filename,req.body.nickname]); //query문을 사용하여 데이터베이스를 업데이트 해준다.    
+			res.status(204).end( ); 
+			}
+		);
