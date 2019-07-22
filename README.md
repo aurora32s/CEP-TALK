@@ -230,8 +230,35 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 		var profileURL="http://202.31.200.143/"+data.image; 
 		fileURL="http://202.31.200.143/"+data.file;
 		$('#messages').append('<li> <audio src="'+fileURL+'" preload="auto" controls></audio><li>');
+		
+(6) 프로필 사진 변경 : 
+	- 로그인을 할 때 자신의 프로필 사진을 지정하거나 채팅 도중 자신의 프로필 사진을 변경하고 싶을 경우 
+	자신의 프로필 사진을 클릭하면 앨범에서 사진을 선택하는 창이 뜬다. 
+	- 원하는 사진을 클릭한 후 확인 버튼을 누르면 자신의 프로필 사진이 변경 되는 기능
 
-(6) 파일 전송 : 앞에서 보았던 여러 파일과 데이터들을 서버로 전송하는 기능
+	- plugin : cordova-plugin-camera, cordova-plugin-crop
+
+	- index.js
+		function changeLoginProfile(){ 
+			var change1 = document.getElementById("profile"); 
+			var options =  { … }; 
+			navigator.camera.getPicture(onSuccess,onFail,options); 
+			function onSuccess(imageURI){ 
+				plugins.crop(function success(data){ 
+					var change = document.getElementById("my_profile"); 
+					change.src = data; 
+					change1.src=data;},
+					function fail(){}, imageURI,{quality:100}
+				);image=imageURI; uploadProfile();
+			}
+			function onFail(message){ //alert("Failed because : " + message) }
+		}
+		
+	- crop plugin을 사용하여 사진을 자신이 원하는 크기만큼 잘라서 사용 가능 
+	- 사진 선택이 완료되면 Image URL을 서버의 데이터베이스에서 프로필 사진을 업로드 해주는 uploadProfile( ) 로 전달한다.
+
+(7) 파일 전송 : 앞에서 보았던 여러 파일과 데이터들을 서버로 전송하는 기능
+
 	- 파일들에 대한 함수가 비슷하므로 한 번에 설명
 
 	- plugin : cordova-plugin-file-transfer
