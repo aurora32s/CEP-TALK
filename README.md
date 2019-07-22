@@ -26,8 +26,8 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
   - Client
   
       <form action=“/Chat” method=“POST”>
-	      <input type=“text” name=“id” 	placeholder=“아이디”/><br/>
-	      <input type=“password” name=“password”			placeholder=“비밀번호”/><br/>
+	      <input type=“text” name=“id” placeholder=“아이디”/><br/>
+	      <input type=“password” name=“password” placeholder=“비밀번호”/><br/>
 	      <Button>로그인</Button>
       </form>
       
@@ -36,7 +36,20 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
       </form>
 
   - Server
+      1. 데이터베이스 검사 : Connect.query(‘select * from REGIST where email=?’,[req,body.id],function(error,result){});
+      
+      2. 아이디와 비밀번호 검사
+      
+      		If(result[i].password == req.body.password){
+			
+			fs.readFile(‘index.ejs’,’utf8’,function(error,data){
+				
+				res.writeHead(200,{‘Content-Type’:’text/html’});
+				res.end(ejs.render(data,{nickname:result[i].nickname,image:result[i].image}));
+			}
+		}
 
+      3
 # 
 
 ## 2. Hybrid App - Chatting Program
