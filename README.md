@@ -108,9 +108,38 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 	- index.html : 이미지를 받아오는 함수
 		var profileURL="http://202.31.200.143/"+data.image; 
 		fileURL="http://202.31.200.143/"+data.file; 
-		$('#messages').append('<li><img id=image src='+profileURL+'> '+data.nickname+ ':'+'<img onClick="downloadFile" 				src='+fileURL+'></li>');
+		$('#messages').append('<li><img id=image src='+profileURL+'> '+data.nickname+ ':'+'<img onClick="downloadFile" src='+fileURL+'></li>');
 
-(2) 사진 앨범에서 가져오기
+(2) 사진 앨범에서 가져오기 : 사진 앨범에서 채팅창에 전송하고 싶은 사진을 선택하여 다른 사용자들에게 전송하는 기능
+
+	- plugin : cordoava-plugin-camera
+	
+	- index.js
+		function onDeviceReady() {    
+			document.getElementById("GetPhoto").addEventListener("click",cameraGetPicture); 
+		}
+		
+	- index.js
+		function cameraGetPicture(){ 
+			navigator.camera.getPicture(
+				onSuccess,
+				onFail, 
+				{ quality: 100, 
+				destinationType: Camera.DestinationType.DATA_URI, 
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY, 
+				mediaType: Camera.MediaType.PICTURE,
+				encodingType: Camera.EncodingType.JPEG, 
+				targetWidth:200, 
+				targetHeight:200 }
+			); 
+			//alert('click'); 
+			function onSuccess(imageURL){ 
+				uploadImage(imageURL); 
+			} 
+			function onFail(message){ //alert("Failed because : " + message) } 
+		}
+		//결과 이미지의 URL을 이미지를 서버로 업로드 해주는 uploadImage( )함수로 전달
+		//사진 촬영과 같은 방식으로 채팅창에 띄어줌.
 
 (3) 동영상 촬영하기
 
