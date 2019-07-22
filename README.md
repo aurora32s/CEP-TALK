@@ -81,6 +81,8 @@ CEP(Computer Programming Project) Talk : Realtime Chatting Program(Web , App) - 
 
 2. 기본 기능
 
+![2_2](https://user-images.githubusercontent.com/22411296/61613031-29a37f80-ac9b-11e9-949c-652fa4b51537.PNG)
+
 (1) 사진 촬영하기 : 사용자가 사진을 촬영하여 그 결과를 채팅창에 업로드 해주는 기능
 
 	- plugin :  cordova-plugin-camera
